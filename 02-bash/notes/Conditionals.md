@@ -2,16 +2,18 @@ If Statements –
 
 -Allow you to introduce decision making logic into your scripts based on specific conditions
 -If statement starts with an ‘if’ and ends with ‘fi’, example:
+#!/bin/bash
 -age=25
--if [  -gt 18 ] (-gt means greater than)
+-if [ $age -gt 18 ] (-gt means greater than)
 -then
 -echo “You are an adult”
 -fi
 -./script.sh
 -“You are an adult” (outcome of executing the script)
 -Using logical operators to make more complex conditions, example:
+#!/bin/bash
 -grade=95
--if [  -ge 90 ] && [  -le 100 ] (The double ‘&&’ is a logical operator that represents AND. The ‘-ge’ stands for greater or equal to. The ‘-le’ stands for less than or equal to. Both these conditions have to be met or the echo string will not execute)
+-if [ $grade -ge 90 ] && [ $grade -le 100 ] (The double ‘&&’ is a logical operator that represents AND. The ‘-ge’ stands for greater or equal to. The ‘-le’ stands for less than or equal to. Both these conditions have to be met or the echo string will not execute)
 -then
 -echo “Excellent”
 -fi
@@ -22,6 +24,7 @@ Else and Elif –
 
 -Provides an alternative path in the script
 -The ‘else’ clause gives you an alternative if the conditions to ‘if’ are not met
+#!/bin/bash
 -age=15
 -if [  -gt 18 ]
 -then
@@ -33,10 +36,10 @@ Else and Elif –
 -You are not an adult (outcome of executing script because the ‘if’ condition was not met so the ‘else’ string is executed instead)
 -The ‘elif’ clause is like adding multiple ‘if’ conditions, example:
 -score=85
--if [  -ge 90 ]
+-if [ $score -ge 90 ]
 -then
 -echo “Excellent”
--elif [  -ge 80 ]
+-elif [ $score -ge 80 ]
 -then
 -echo “Good”
 -else
@@ -48,13 +51,14 @@ Else and Elif –
 Nested if Statements –
 
 -Allows you to create more complex structure that allows you to introduce if statements into another if statement, example: 
+#!/bin/bash
 -age=19
 -grade=85
--if [  -gt 18 ]; then
+-if [ $age -gt 18 ]; then
 -echo “You are eligible based on age”
--if [  -ge 80 ]; then
+-if [ $grade -ge 80 ]; then
 -echo “You are eligible based on grade”
--echo “
+-echo “Congrats! You are eligible for the scholarship!"
 -else
 -echo “Sorry your grade is not eligible”
 -fi
