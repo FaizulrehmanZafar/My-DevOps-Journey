@@ -1,0 +1,55 @@
+1. Arithmetic Operations Script
+Brief Description -
+This script takes two numbers from the user and performs basic arithmetic operations (addition, subtraction, multiplication, and division). It also handles division by zero to prevent errors.
+Key Learning Points -
+•	User input with read 
+•	Arithmetic with $(( )) 
+•	If statements and conditionals 
+•	Handling division by zero 
+•	Output with echo 
+Challenge Overcome -
+Adding a check to prevent division by zero errors.
+Why Bash Matters in DevOps -
+Bash helps automate simple calculations and logic in system scripts and DevOps workflows.
+ 
+2. Directory and File Automation Script
+Brief Description -
+This script creates a directory, navigates into it, creates a file, writes text including the current date, and displays the file contents.
+Key Learning Points -
+•	mkdir and cd usage 
+•	Writing to files using > 
+•	Using $(date) for dynamic values 
+•	Reading files with cat 
+•	Automating steps in sequence 
+Challenge Overcome -
+Making sure the script correctly navigates into the directory before creating the file.
+Why Bash Matters in DevOps -
+Bash is used to automate file and directory setup in Linux environments.
+ 
+3. File Permission Checker Script
+Brief Description -
+This script checks if a file exists and displays whether it is readable, writable, and executable.
+Key Learning Points -
+•	File existence check -e 
+•	Permissions -r, -w, -x 
+•	If-else conditions 
+•	User input handling 
+•	Clear output formatting 
+Challenge Overcome -
+Managing multiple permission checks in a clean way.
+Why Bash Matters in DevOps -
+Bash is important for managing file permissions and system security tasks.
+ 
+4. Backup Automation Script
+Brief Description -
+This script creates a timestamped backup folder, copies all .txt files from a source directory, and shows how many files were backed up.
+Key Learning Points -
+•	Using date for timestamps 
+•	Creating directories with mkdir -p 
+•	Looping with for 
+•	File filtering with *.txt 
+•	Counting files with variables 
+Challenge Overcome -
+Handling cases where no .txt files exist.
+Why Bash Matters in DevOps -
+Bash is widely used for backups, automation, and system maintenance tasks.
