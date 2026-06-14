@@ -1,0 +1,195 @@
+Git in the Real World -
+
+Connecting to GitHub –
+
+git remote add origin <url> - this links to the local -> GitHub
+git push -u origin main – sends your work to the cloud
+git pull – brings down changes from GitHub
+SSH vs HTTPS:
+SSH = secure, no password
+HTTPS = easy but asks for credentials
+
+GitHub SignUp –
+
+Configuring my Git Identity –
+
+git config --global user.name “FaizulrehmanZafar”
+git config --global user.email faiz2k2000@outlook.com
+
+SSH Key –
+
+Used to verify our commits –
+
+ssh-keygen -t ed25519 -C faiz2k2000@outlook.com -f ~/.ssh/mysshkey
+
+New Repository –
+
+mkdir git-lab
+cd git – lab
+git init (creates hidden .git directory)
+touch Myfile.md
+echo “# Git Lab” > Myfile.md
+git add Myfile.md
+git commit -m “init commit”
+git remote add origin https://github.com/faizulrehmanzafar/git-labs.git (pushes the commits remotely to github as prior it was all locally)
+
+First Repository Push –
+
+git push -u origin main (pushes everything to the main branch on github)
+
+Branching and Merging –
+
+echo “Hello from main” > app.txt
+git status (checks where file is will be red if its not added)
+git add app.txt 
+git status (should be green)
+git commit -m “initial commit on main”
+
+git checkout -b branch-1 (creates a new branch)
+echo “Feature branch change” > app.txt
+git add app.txt (adding the file to another branch)
+git commit -m “update from branch-1” (sends a commit from branch-1)
+
+git checkout main
+echo “Main branch change” > app.txt
+git add app.txt
+git commit -m “conflicting update from main”
+
+git merge branch-1
+echo -e “Hello from main\nMain branch change\nFeature branch change” > app.txt
+cat app.txt (displays the text)
+git add app.txt
+git commit -m “resolve merge conflict between main and branch-1 branch”
+git push (fixes merge conflicts)
+
+git branch -d branch-1 (deletes the branch we don’t want to make it look clean on github)
+git branch (shows the branches)
+
+Git Workflow –
+
+How to use git as a team –
+
+git pull (make sure you have the latest things)
+git checkout -b feature/add-about-page (check out of your current branch and create a new one)
+echo “This is the about page.” > about.md
+git status
+git add about.md
+git commit -m “Add about page”
+git push 
+git push –set-upstream origin feature/add-about-page (adds it remotely to github)
+
+Github will tell you on the site there’s a new branch added and will ask if you want to do a pull request, so just click it and create pull request.
+You can then get someone to review it
+And then eventually merge pull request
+
+Undoing in Git –
+
+git checkout main (checks out of current branch and goes to main)
+git pull (gets the latest things)
+
+Example 1 – How to undo something you haven’t pushed yet
+echo “origin line” > undo.txt
+git add undo.txt
+git commit -m “test commit” 
+echo “bad change” > undo.txt
+cat undo.txt (will display “bad change”)
+git restore undo.txt
+cat undo.txt (will display “origin line”)
+
+Example 2 – How to unstage 
+
+echo “another bad line” > undo.txt
+git add undo.txt
+git status
+git restore –staged undo.txt
+git status (now unstaged)
+
+Example 3 – How to undo a bad commit that hasn’t been pushed
+
+echo “oops commit” > undo.txt
+git status
+git add undo.txt
+git commit -m “bad commit”
+git reset –soft HEAD~1
+git status
+
+Git Stash –
+
+git status
+git pull
+echo “incomplete work” > feature.txt
+git add feature.txt
+echo “more changes not staged” > feature.txt
+git stash push -m “WIP: feature.txt changes”
+git status
+echo “hotfix applied” > hotfix.txt
+git add hotfix.txt
+git commit -m “apply hotfix on main”
+git push origin main
+git stash list
+
+To bring back work:
+git stash apply
+git stash pop
+git stash list (it wont be there anymore)
+
+Git rebase & squash –
+
+git pull 
+git status
+git checkout -b feature-rebase
+echo “line 1” > changes.txt
+git add changes.txt
+git commit -m “feat: add first line”
+echo “line 2” >> changes.txt
+git status
+git add changes.txt
+git commit -m “feat: add second line”
+echo “line 3” >> changes.txt
+git add changes.txt
+git commit -m “feat: add third line”
+git log –oneline
+
+we want to rebase and squash all these 3 commits into one:
+
+git rebase -i HEAD~3
+Then change the “pick” in the second and third line to “squash”
+And then save and close with wq!
+git log –oneline
+git push
+will display as one commit on github
+
+Git cherry-pick –
+
+git pull
+git checkout -b feature-cherry
+echo “hotfix config for prod” > hotfix.txt
+git add hotfix.txt
+git commit -m “hotfix: add prod config fix”
+git push
+git log –oneline (copy the commit number on the left)
+git checkout main
+git pull
+git cherry-pick 57a34bc (cherry picks a commit from one branch to the main)
+git push origin main
+
+The “.gitignore” –
+
+Watch video on Skool
+Git amend –
+
+How to change last commit:
+
+git pull
+echo “line 1” > notes.txt
+git add notes.txt
+git commit -m “feat: add note file”
+echo “metadata” > meta.txt
+git add meta.txt
+git commit –amend (amend the commit at the top in “feat” line)
+git log –oneline (shows last commit)
+git push
+
+Pre-commit –
+
+Watch video on skool
