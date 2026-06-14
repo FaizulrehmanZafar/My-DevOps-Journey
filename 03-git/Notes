@@ -1,1 +1,256 @@
+Git Intro –
 
+Foundation of how modern teams collaborate, build, test and ship production
+
+Version Control –
+
+It’s a system that tracks code over time
+Lets you undo, inspect and collaborate
+Revert, review and branch safely
+Essential for an DevOps/engineering workflow
+
+Centralised (SVN) vs Distributed (Git) –
+
+Centralised –
+
+Single source of truth
+Requires network to commit
+Conflicts are common
+Server outage = devs are stuck
+Locks files during edits
+
+Distributed –
+
+Full history on every machine
+Works offline
+Fast branching and merging
+Resilient to outages
+Everyone can commit locally
+
+Git History – 
+
+Created by Linus Torvalds in 2005, the same person who created Linux
+Built for Linux kernel Devs
+Distributed: full history stored locally
+Fast, powerful branching/merging
+Default tool in almost every software team today
+Popular in open source and companies
+
+Git is NOT a File Tracker –
+
+It tracks snapshots through commits and not differences
+Uses a key-value store (SHA-1 hash)
+Each commit = full snapshot of files
+Files stored as objects (blobs, trees)
+Content-addressed, not file-name based
+
+Git Terminology –
+
+Repository: a Git project (tracked folder with a git directory)
+Commit: a snapshot of your files and metadata (author, timestamp, message etc)
+Branch: a moveable pointer to a specific commit (main, dev, feature/login)
+Remote: a reference to an external Git host (like Github or Gitlab) 
+Staging Area: also called the index. It’s a buffer between your working directory and the repo what you plan to commit
+Blobs: “binary large objects” – stores the actual content of files (just data not filename/paths)
+Trees: stores filenames, file paths and pointers to blobs (files) and other trees (directories)
+Ref (Reference): pointer to a commit: branches (refs/heads), tags (refs/tags) and special ones like HEAD
+HEAD: pointer to the current branch or commit you’re working on
+Index: the actual file .git/index, a binary file that holds the staging area info
+Object Store: .git/objects/ - where Git stores all blobs, trees and commits by SHA hash
+Tag: a ref to a specific commit, often used for marking releases
+
+The .git Directory –
+
+-	Contains all history and configuration
+
+.git/refs/ - tags and branches
+.git/objects/ - all your commits, blobs and trees
+.git/config – repo specific settings
+.git/HEAD – current branch pointer
+.git/index – staging area
+
+Git Common Commands –
+
+Git init – initialises a new git repo with .git directory
+Git add – stage changes
+Git commit – snapshot changes
+Git status – show staged/unstaged work
+Git log – show commit history
+Git diff – show what changed
+Git config – set user/email
+Git help <command> - built-in docs
+Git clone – copy a remote repo
+Git rm – remove files
+Git mv – rename files
+Git restore – undo file changes
+
+The Areas of Git –
+
+There’s 3 areas of Git: Working directory, Staging area, Repository
+Working directory – files you/re editing
+Staging area – Changes marked for commit
+Repository – Commit snapshots
+
+Viewing History –
+
+You can use Git’s history using tools to trace back changes using essential commands such as git log or git log –oneline –graph which shows a visual summary.
+
+Git vs GitHub –
+
+Git is not GitHub. 
+GitHub is a platform which is based online and Git runs locally.
+Git is open source and nobody owns it but GitHub is owned by Microsoft.
+Git tracks and manages code history on CLI whilst GitHub shares codes and manages codes.
+
+
+Branching 101 –
+
+Allows you to work on multiple things without messing up your main project. 
+You can open a new branch if you want to try a new feature for example
+Theres commands to use for branches:
+Git branch – list/create branches
+Git checkout -b <branch> - create and switch (older syntax)
+Git switch -c <branch> - modern version
+Git switch <branch> - switch branch safely
+Git branch -d <branch> - delete branch
+
+Merging –
+
+Combines changes from one branch to another
+Git merge <branch> - merges a target into current branch
+Creates a merge commit
+May cause conflict so manual resolution required
+
+Visualise Branches and Logs –
+
+Git log --online – shows a compact commit view
+Git log --graph - visual tree structure
+Git log --online --graph --all – compact, visual, full view
+Great for debugging merges and tracking branches
+Helps you see what’s really happening under the hood
+
+Rebase vs Merge –
+
+Merge: 
+use when working collaboratively
+preserves history
+creates a new commit
+good for team workflows
+
+Rebase:
+Use when cleaning up your local history
+Rewrites history
+No merge commits
+Ideal for cleanup before PR
+
+Git Stash & Pop –
+
+Its great for scenarios where you’re not ready commit but need to move to another branch 
+
+git stash – temporarily save uncommitted changes
+git stash list – view all stashes 
+git stash apply – reapply latest stash (keeps stash)
+git stash pop – reapply and delete stash
+Use when switching branches mid-task
+
+Reset, Revert and Cherry-pick -
+
+git revert –
+
+creates a new commit that undoes another 
+safe for shared history
+used in production
+
+git reset –
+
+moves branch pointer backward
+theres 3 types: 
+soft = keeps changes
+mixed = unstage
+hard = nukes everything (be careful with this)
+
+git cherry-pick –
+
+apply a single commit from another branch
+useful for hotfixes or targeted changes
+
+Forks & Pull Requests –
+
+Fork = your own copy of someone else’s repo (GitHub)
+Clone the forked repo to your local machine
+Make changes -> push to your fork
+Open a Pull Request (PR) to propose your changes
+Used in open source and cross-team workflows
+Original repo owner can review, comment and merge
+
+Collaborating Practices –
+
+Uses branch to isolate work 
+Push to remote and open PR
+Assign reviewers, use GitHub’s UI for comments
+Resolve conflicts before merge
+Use issues, projects and discussions to track work
+Keep commits focused and clean
+
+Typical Git Workflow –
+
+Developer pulls latest mains or clones repo
+Creates feature branch
+Work locally -> commits > pushes branch
+Opens PR/MR -> review and merge
+Team syncs regularly via git pull 
+
+
+
+Trunk-Based Development –
+
+Means all devs commit to main or short-lived branches
+Heavy CI/testing gates
+Used in fast-moving organisations (google, facebook etc)
+
+Commit hygiene & Best Practices –
+
+Write good commit messages
+Use squashing before merging PRs
+One logical change per commit
+Avoid noisy merges 
+
+Pre-Commit & Automation –
+
+Run linters/tests before committing (pre-commit, Husky, tflint/sec etc)
+Prevent broken code from entering the repo
+Hook into CI pipelines for formatting, testing and scanning
+
+Common Mistakes in the Real World –
+
+Forgetting to pull before pushing 
+Force pushing to shared branches (unless necessary)
+Committing secrets
+Merging without review 
+Not using .gitignore properly. Not committing secrets or sensitive files
+
+Git at Scale –
+
+What happens in big organisations that use Git when your repo isn’t just a project and its thousands of devs involved:
+
+Monorepo Strategies
+Sparse checkout
+Large file support (Git LFS)
+Clean up legacy history (filter-branch, filter-repo)
+Submodules vs subtrees in microservice repos
+Selective CI builds Turborepo, Nx, Bazel etc)
+Commit linting + bots to enforce rules
+GitOps-style deployments (ArgoCD, Flux etc)
+Server-side Git hooks (pre-commit.ci, Lefthook etc)
+
+
+
+
+
+
+Git Security & Secrets Hygiene –
+
+Preventing secret leaks in commits
+Using git-secrets, trufflehog
+Cleaning secrets from history
+Auditing repo contributors + logs
